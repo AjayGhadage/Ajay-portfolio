@@ -47,7 +47,7 @@ function Projects() {
         "Implemented dark/light theme toggle with smooth UI transitions.",
         "Integrated animations including scroll reveal, hover effects, and interactive project showcase."
       ],
-      github: "https://github.com/AjayGhadage/Personal-Portfolio",
+      github: "https://ajay-portfolio-beryl.vercel.app/",
       live: "#",
       featured: true
     }
