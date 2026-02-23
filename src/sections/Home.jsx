@@ -90,7 +90,7 @@ function Home() {
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href="/Ajay_Ghadage_computerEngineering.pdf"
+              href="/Ajay_s_Resume.pdf"
               className="flex items-center gap-2 border border-gray-600 px-6 py-3 rounded-full hover:border-cyan-400 hover:text-cyan-400 transition duration-300"
             >
               Download Resume <FaDownload />
