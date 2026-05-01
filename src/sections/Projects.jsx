@@ -186,11 +186,11 @@ function Projects() {
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              whileHover={{ scale: 1.02 }}
-              className={`relative rounded-3xl p-4 md:p-8 transition duration-500 overflow-hidden
+              whileHover={{ y: -10 }}
+              className={`relative flex flex-col rounded-3xl p-5 md:p-8 transition-all duration-500
               ${project.featured
                   ? "md:col-span-2 bg-gradient-to-br from-cyan-950/40 via-[#020617] to-purple-950/40 border border-cyan-400/30"
-                  : "bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-gray-700"
+                  : "bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-cyan-400/20"
                 }`}
             >
               {/* Featured Badge */}
@@ -235,64 +235,62 @@ function Projects() {
                 </Swiper>
               </div>
 
-              <div className="flex flex-col h-full">
-                {/* CONTENT */}
-                <div className="flex-grow">
-                  <h3 className="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">
-                    {project.title}
-                  </h3>
+              {/* CONTENT */}
+              <div className="flex-grow">
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">
+                  {project.title}
+                </h3>
 
-                  {/* TECH */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map((t, i) => (
-                      <span key={i} className="text-[10px] font-bold uppercase tracking-wider bg-white/5 border border-white/10 px-2.5 py-1 rounded-md text-cyan-400">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* METRICS */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.metrics?.map((m, i) => (
-                      <span key={i} className="text-[10px] font-bold bg-green-500/10 text-green-400 px-2.5 py-1 rounded-md border border-green-500/20">
-                        ✓ {m}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* DESCRIPTION */}
-                  <ul className="text-gray-400 text-sm space-y-2 mb-8 leading-relaxed">
-                    {project.description.map((d, i) => (
-                      <li key={i} className="flex gap-2">
-                         <span className="text-cyan-500">•</span>
-                         {d}
-                      </li>
-                    ))}
-                  </ul>
+                {/* TECH */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.tech.map((t, i) => (
+                    <span key={i} className="text-[10px] font-bold uppercase tracking-wider bg-white/5 border border-white/10 px-2.5 py-1 rounded-md text-cyan-400">
+                      {t}
+                    </span>
+                  ))}
                 </div>
 
-                {/* BUTTONS (Adaptive Grid) */}
-                <div className="grid grid-cols-2 gap-3 mt-auto">
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      className="flex items-center justify-center gap-2 py-3 bg-white/5 border border-white/10 rounded-xl text-sm font-bold hover:bg-white hover:text-black transition-all"
-                    >
-                      <FaGithub className="text-lg" /> Code
-                    </a>
-                  )}
-
-                  {project.live && project.live !== "#" && (
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      className="flex items-center justify-center gap-2 py-3 bg-cyan-400 border border-cyan-400 rounded-xl text-sm font-black text-black hover:bg-white hover:border-white transition-all shadow-[0_0_15px_rgba(34,211,238,0.3)]"
-                    >
-                      <FaExternalLinkAlt /> Live
-                    </a>
-                  )}
+                {/* METRICS */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.metrics?.map((m, i) => (
+                    <span key={i} className="text-[10px] font-bold bg-green-500/10 text-green-400 px-2.5 py-1 rounded-md border border-green-500/20">
+                      ✓ {m}
+                    </span>
+                  ))}
                 </div>
+
+                {/* DESCRIPTION */}
+                <ul className="text-gray-400 text-sm space-y-2 mb-8 leading-relaxed">
+                  {project.description.map((d, i) => (
+                    <li key={i} className="flex gap-2">
+                       <span className="text-cyan-500">•</span>
+                       {d}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* BUTTONS (Adaptive Grid) */}
+              <div className="grid grid-cols-2 gap-3 mt-6">
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    className="flex items-center justify-center gap-2 py-3 bg-white/5 border border-white/10 rounded-xl text-sm font-bold hover:bg-white hover:text-black transition-all"
+                  >
+                    <FaGithub className="text-lg" /> Code
+                  </a>
+                )}
+
+                {project.live && project.live !== "#" && (
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    className="flex items-center justify-center gap-2 py-3 bg-cyan-400 border border-cyan-400 rounded-xl text-sm font-black text-black hover:bg-white hover:border-white transition-all shadow-[0_0_15px_rgba(34,211,238,0.3)]"
+                  >
+                    <FaExternalLinkAlt /> Live
+                  </a>
+                )}
               </div>
             </motion.div>
           ))}
