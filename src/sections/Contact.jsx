@@ -75,8 +75,9 @@ function Contact() {
             </p>
 
             <div className="space-y-4">
-              <p className="flex items-center gap-3">
-                <FaEnvelope />ajayghadage2005@gmail.com
+              <p className="flex items-center gap-3 text-sm md:text-base">
+                <FaEnvelope className="flex-shrink-0 text-cyan-400" />
+                <span className="break-all">ajayghadage2005@gmail.com</span>
               </p>
               <p className="flex items-center gap-3">
                 <FaGithub /> GitHub
@@ -91,7 +92,7 @@ function Contact() {
           <form
             ref={form}
             onSubmit={sendEmail}
-            className="bg-gray-800/60 p-8 rounded-2xl border border-gray-700 space-y-6"
+            className="bg-gray-800/60 p-6 md:p-8 rounded-2xl border border-gray-700 space-y-6"
           >
             <input
               type="text"

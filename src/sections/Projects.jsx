@@ -186,10 +186,10 @@ function Projects() {
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              whileHover={{ y: -10 }}
-              className={`relative flex flex-col rounded-3xl p-5 md:p-8 transition-all duration-500
+              whileHover={{ y: -5 }}
+              className={`relative flex flex-col rounded-3xl p-6 md:p-8 transition-all duration-500
               ${project.featured
-                  ? "md:col-span-2 bg-gradient-to-br from-cyan-950/40 via-[#020617] to-purple-950/40 border border-cyan-400/30"
+                  ? "md:col-span-2 bg-gradient-to-br from-cyan-950/40 via-[#020617] to-purple-950/40 border border-cyan-400/30 shadow-[0_0_20px_rgba(34,211,238,0.05)]"
                   : "bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-cyan-400/20"
                 }`}
             >
