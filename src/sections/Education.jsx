@@ -164,51 +164,45 @@ function Education() {
             </ul>
           </motion.div>
 
-          {/* ================= CERTIFICATIONS ================= */}
-          <div className="space-y-8">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <FaCertificate className="text-cyan-400 text-xl" />
-                <h3 className="text-xl font-semibold uppercase tracking-widest text-cyan-400">Certifications</h3>
-              </div>
-              <span className="text-gray-500 text-xs animate-pulse">Swipe →</span>
+          {/* ================= CERTIFICATIONS (High-Visibility Grid) ================= */}
+          <div className="space-y-10">
+            <div className="flex items-center gap-3">
+              <FaCertificate className="text-cyan-400 text-xl" />
+              <h3 className="text-xl font-semibold uppercase tracking-widest text-cyan-400">Certifications</h3>
             </div>
 
-            <Swiper
-              modules={[Pagination, Autoplay]}
-              spaceBetween={20}
-              slidesPerView={1.2}
-              breakpoints={{
-                640: { slidesPerView: 2.2 },
-                1024: { slidesPerView: 3.2 }
-              }}
-              className="pb-12"
-            >
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
-                { id: "mern", title: "MERN Stack", img: "/mern.png", border: "hover:border-blue-400/40" },
-                { id: "talent", title: "Talent Battle (Java)", img: "/talent.png", border: "hover:border-cyan-400/40" },
+                { id: "mern", title: "MERN Stack Development", img: "/mern.png", border: "hover:border-blue-400/40" },
+                { id: "talent", title: "Talent Battle (Java & DSA)", img: "/talent.png", border: "hover:border-cyan-400/40" },
                 { id: "synapse", title: "Synapse Hackathon", img: "/shackathon.png", border: "hover:border-green-400/40" },
                 { id: "topper", title: "Academic 3rd Topper", img: "/colorprint-2025.png", border: "hover:border-yellow-400/40" },
-                { id: "vyoma", title: "VYOMA 2026 Prototype", img: "/vyoma.png", border: "hover:border-red-400/40" },
+                { id: "vyoma", title: "VYOMA National Prototype", img: "/vyoma.png", border: "hover:border-red-400/40" },
               ].map((cert, i) => (
-                <SwiperSlide key={i}>
-                  <motion.div
-                    onClick={() => setActiveCert(cert.id)}
-                    className={`bg-gray-900/50 backdrop-blur-sm p-5 rounded-2xl border border-gray-800 ${cert.border} transition cursor-pointer group h-full`}
-                  >
-                    <h3 className="text-sm font-semibold mb-3 text-gray-300 group-hover:text-white transition-colors">{cert.title}</h3>
-                    <div className="relative aspect-video rounded-xl overflow-hidden">
-                      <img
-                        src={cert.img}
-                        alt={cert.title}
-                        className="w-full h-full object-cover transform group-hover:scale-110 transition duration-700"
-                      />
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  viewport={{ once: true }}
+                  onClick={() => setActiveCert(cert.id)}
+                  className={`group relative bg-gray-900/40 backdrop-blur-sm p-5 rounded-3xl border border-gray-800 ${cert.border} transition-all duration-500 cursor-pointer overflow-hidden hover:shadow-[0_20px_50px_rgba(34,211,238,0.05)]`}
+                >
+                  <h3 className="text-sm font-bold mb-4 text-gray-400 group-hover:text-cyan-400 transition-colors uppercase tracking-wider">{cert.title}</h3>
+                  <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-gray-950">
+                    <img
+                      src={cert.img}
+                      alt={cert.title}
+                      className="w-full h-full object-cover transform group-hover:scale-110 transition duration-700"
+                    />
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors duration-500" />
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 backdrop-blur-[2px]">
+                       <span className="bg-white/10 border border-white/20 px-4 py-2 rounded-full text-xs font-bold text-white backdrop-blur-md">View Certificate</span>
                     </div>
-                  </motion.div>
-                </SwiperSlide>
+                  </div>
+                </motion.div>
               ))}
-            </Swiper>
+            </div>
           </div>
 
                  {/* ================= LEETCODE ================= */}
