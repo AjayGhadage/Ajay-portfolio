@@ -204,9 +204,9 @@ function About() {
             centeredSlides={true}
             slidesPerView={"auto"}
             coverflowEffect={{
-              rotate: 35,
+              rotate: window.innerWidth < 768 ? 25 : 35,
               stretch: 0,
-              depth: 250, // Increased for more 3D model look
+              depth: window.innerWidth < 768 ? 100 : 250,
               modifier: 1,
               slideShadows: true,
             }}

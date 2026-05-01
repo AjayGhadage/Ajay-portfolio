@@ -201,20 +201,21 @@ function Projects() {
               )}
 
               {/* MEDIA SECTION */}
-              <div className="relative group/media mb-6">
+              <div className="relative h-56 md:h-80 w-full mb-6 overflow-hidden rounded-2xl bg-gray-900 shadow-2xl">
                 <Swiper
                   modules={[Pagination, Autoplay]}
                   pagination={{ clickable: true }}
                   autoplay={{ delay: 4000 }}
-                  className="rounded-2xl overflow-hidden shadow-2xl"
+                  className="w-full h-full"
                 >
                   {/* VIDEO FIRST */}
                   {project.video && (
                     <SwiperSlide>
-                      <div className="relative aspect-video bg-black flex items-center justify-center">
+                      <div className="w-full h-full bg-black">
                         <iframe
                           src={project.video.replace("watch?v=", "embed/")}
-                          className="w-full h-full"
+                          className="w-full h-full border-0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
                         ></iframe>
                       </div>
@@ -226,8 +227,7 @@ function Projects() {
                     <SwiperSlide key={i}>
                       <img
                         src={img}
-                        className="w-full aspect-video object-cover"
-                        loading="lazy"
+                        className="w-full h-full object-cover"
                         alt={project.title}
                       />
                     </SwiperSlide>
