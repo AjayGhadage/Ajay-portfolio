@@ -181,13 +181,13 @@ function Projects() {
         </motion.h2>
 
         {/* Grid */}
-        <div className="grid md:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
 
           {projects.map((project, index) => (
             <motion.div
               key={index}
               whileHover={{ y: -5 }}
-              className={`relative flex flex-col rounded-3xl p-6 md:p-8 transition-all duration-500
+              className={`relative flex flex-col col-span-1 rounded-3xl p-6 md:p-8 transition-all duration-500
               ${project.featured
                   ? "md:col-span-2 bg-gradient-to-br from-cyan-950/40 via-[#020617] to-purple-950/40 border border-cyan-400/30 shadow-[0_0_20px_rgba(34,211,238,0.05)]"
                   : "bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-cyan-400/20"
@@ -200,39 +200,43 @@ function Projects() {
                 </div>
               )}
 
-              {/* MEDIA SECTION */}
-              <div className="relative h-56 md:h-80 w-full mb-6 overflow-hidden rounded-2xl bg-gray-900 shadow-2xl">
-                <Swiper
-                  modules={[Pagination, Autoplay]}
-                  pagination={{ clickable: true }}
-                  autoplay={{ delay: 4000 }}
-                  className="w-full h-full"
-                >
-                  {/* VIDEO FIRST */}
-                  {project.video && (
-                    <SwiperSlide>
-                      <div className="w-full h-full bg-black">
-                        <iframe
-                          src={project.video.replace("watch?v=", "embed/")}
-                          className="w-full h-full border-0"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                        ></iframe>
-                      </div>
-                    </SwiperSlide>
-                  )}
+              {/* MEDIA SECTION (Bulletproof Responsive Aspect Ratio 16:9) */}
+              <div className="relative w-full pt-[56.25%] mb-6 overflow-hidden rounded-2xl bg-gray-900 shadow-2xl border border-white/5">
+                <div className="absolute inset-0">
+                  <Swiper
+                    modules={[Pagination, Autoplay]}
+                    pagination={{ clickable: true }}
+                    autoplay={{ delay: 4000 }}
+                    allowTouchMove={true}
+                    className="w-full h-full"
+                  >
+                    {/* VIDEO FIRST */}
+                    {project.video && (
+                      <SwiperSlide>
+                        <div className="w-full h-full bg-gray-950">
+                          <iframe
+                            src={project.video.replace("watch?v=", "embed/")}
+                            className="w-full h-full border-0 absolute inset-0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          ></iframe>
+                        </div>
+                      </SwiperSlide>
+                    )}
 
-                  {/* IMAGES */}
-                  {project.images?.map((img, i) => (
-                    <SwiperSlide key={i}>
-                      <img
-                        src={img}
-                        className="w-full h-full object-cover"
-                        alt={project.title}
-                      />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
+                    {/* IMAGES */}
+                    {project.images?.map((img, i) => (
+                      <SwiperSlide key={i}>
+                        <img
+                          src={img}
+                          className="w-full h-full object-cover select-none"
+                          alt={project.title}
+                          loading="eager"
+                        />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
               </div>
 
               {/* CONTENT */}
