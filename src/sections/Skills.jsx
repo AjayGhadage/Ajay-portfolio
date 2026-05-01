@@ -14,6 +14,7 @@ import {
   SiNetlify,
   SiExpress,
 } from "react-icons/si";
+import { motion } from "framer-motion";
 
 function Skills() {
   const frontend = [
@@ -62,8 +63,37 @@ function Skills() {
   );
 
   return (
-    <section id="skills" className="py-28 bg-black">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="skills" className="py-28 relative overflow-hidden bg-[#020617]">
+      {/* THE NEURAL MESH: THEMED BACKGROUND */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-500/5 blur-[120px] rounded-full" />
+        
+        {/* Digital Grid Overlay */}
+        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
+
+        {/* Neural Nodes */}
+        {[...Array(10)].map((_, i) => (
+          <motion.div
+            key={i}
+            animate={{ 
+              y: [0, -30, 0],
+              opacity: [0.2, 0.4, 0.2]
+            }}
+            transition={{ 
+              duration: 4 + Math.random() * 4, 
+              repeat: Infinity,
+              delay: Math.random() * 2 
+            }}
+            className="absolute w-1.5 h-1.5 bg-cyan-400 rounded-full shadow-[0_0_10px_rgba(34,211,238,0.8)]"
+            style={{
+              left: 10 + Math.random() * 80 + "%",
+              top: 10 + Math.random() * 80 + "%",
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
 
         {/* Section Header */}
         <p className="text-cyan-400 uppercase tracking-widest text-sm mb-3">

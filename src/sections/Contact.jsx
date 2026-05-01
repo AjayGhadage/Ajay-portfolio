@@ -30,8 +30,23 @@ function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-gray-900 text-white">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="contact" className="py-24 relative overflow-hidden bg-[#020617] text-white">
+      {/* THE CONNECTION: THEMED BACKGROUND */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(circle_at_10%_90%,rgba(34,211,238,0.05),transparent_50%)]" />
+        
+        {/* Animated Digital Wave */}
+        <motion.div
+           animate={{ 
+             x: [-100, 100, -100],
+             opacity: [0.1, 0.2, 0.1]
+           }}
+           transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+           className="absolute -bottom-24 -left-24 w-[150%] h-64 bg-cyan-500/10 blur-[100px] rounded-[100%] rotate-3"
+        />
+      </div>
+
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
 
         <motion.h2
           initial={{ opacity: 0, y: -20 }}

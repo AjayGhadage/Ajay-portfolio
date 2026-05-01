@@ -21,6 +21,7 @@ function Navbar() {
           <a href="#home" className="hover:text-cyan-400 transition">Home</a>
           <a href="#about" className="hover:text-cyan-400 transition">About</a>
           <a href="#education" className="hover:text-cyan-400 transition">Education</a>
+          <a href="#experience" className="hover:text-cyan-400 transition">Experience</a>
           <a href="#skills" className="hover:text-cyan-400 transition">Skills</a>
           <a href="#projects" className="hover:text-cyan-400 transition">Projects</a>
           <a href="#contact" className="hover:text-cyan-400 transition">Contact</a>
@@ -89,16 +90,17 @@ function Navbar() {
               <a href="#home" onClick={() => setIsOpen(false)}>Home</a>
               <a href="#about" onClick={() => setIsOpen(false)}>About</a>
               <a href="#education" onClick={() => setIsOpen(false)}>Education</a>
+              <a href="#experience" onClick={() => setIsOpen(false)}>Experience</a>
               <a href="#skills" onClick={() => setIsOpen(false)}>Skills</a>
               <a href="#projects" onClick={() => setIsOpen(false)}>Projects</a>
               <a href="#contact" onClick={() => setIsOpen(false)}>Contact</a>
 
               {/* Mobile Icons */}
-              <div className="flex gap-6 text-xl pt-4 border-t border-gray-800">
-                <FaGithub />
-                <FaLinkedin />
-                <SiLeetcode />
-                <SiCodeforces />
+              <div className="flex gap-8 text-2xl pt-6 border-t border-gray-800">
+                <a href="https://github.com/AjayGhadage" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400"><FaGithub /></a>
+                <a href="https://www.linkedin.com/in/ajay-ghadage-1a668a28b/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400"><FaLinkedin /></a>
+                <a href="https://leetcode.com/u/Ajya_Ghadage/" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-400"><SiLeetcode /></a>
+                <a href="https://www.codechef.com/users/sane_crows_73" target="_blank" rel="noopener noreferrer" className="hover:text-purple-400"><SiCodechef /></a>
               </div>
 
             </div>

@@ -23,16 +23,48 @@ function Home() {
   return (
     <section
       id="home"
-      className="relative min-h-screen bg-black text-white flex items-center overflow-hidden"
+      className="relative min-h-screen bg-[#020617] text-white flex items-center overflow-hidden"
     >
+      {/* THE CORE: THEMED BACKGROUND */}
+      <div className="absolute inset-0 z-0">
+        {/* Central Energy Aura */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/10 blur-[120px] rounded-full animate-pulse-slow" />
+
+        {/* Floating Bokeh Particles */}
+        {[...Array(12)].map((_, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{
+              opacity: [0.1, 0.2, 0.1],
+              scale: [1, 1.3, 1],
+              x: [0, Math.random() * 80 - 40],
+              y: [0, Math.random() * 80 - 40]
+            }}
+            transition={{
+              duration: 6 + Math.random() * 6,
+              repeat: Infinity,
+              delay: Math.random() * 5
+            }}
+            className="absolute bg-cyan-500/10 rounded-full blur-2xl"
+            style={{
+              width: Math.random() * 150 + 50 + "px",
+              height: Math.random() * 150 + 50 + "px",
+              left: Math.random() * 100 + "%",
+              top: Math.random() * 100 + "%",
+            }}
+          />
+        ))}
+      </div>
+
       {/* Cursor Glow */}
       <motion.div
         style={{ x: springX, y: springY }}
-        className="fixed top-0 left-0 w-72 h-72 rounded-full bg-cyan-400/10 blur-3xl pointer-events-none z-0"
+        className="fixed top-0 left-0 w-80 h-80 rounded-full bg-cyan-400/[0.08] blur-3xl pointer-events-none z-10"
       />
 
-      {/* Background Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+      {/* Subtle Background Grid */}
+      <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12 items-center">
 
@@ -72,8 +104,9 @@ function Home() {
           </h2>
 
           <p className="text-gray-400 max-w-xl mb-8 leading-relaxed text-sm md:text-base">
-            I build scalable and high-performance web applications focused on
-            clean architecture, usability, and long-term maintainability.
+            Computer Engineering student specializing in building real-world MERN stack
+            applications and scalable backends. Focused on clean architecture and
+            high-performance systems with over 100+ DSA problems solved.
           </p>
 
           {/* Buttons */}
@@ -90,7 +123,7 @@ function Home() {
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href="/Ajay_s_Resume.pdf"
+              href="/ajay_ghadage _resume.pdf"
               className="flex items-center gap-2 border border-gray-600 px-6 py-3 rounded-full hover:border-cyan-400 hover:text-cyan-400 transition duration-300"
             >
               Download Resume <FaDownload />
@@ -120,7 +153,7 @@ function Home() {
 
             {/* Floating Profile Image */}
             <motion.img
-              src="/ajay.png"
+              src="/Ajay1.png"
               alt="Profile"
               className="relative rounded-full w-full h-full object-cover border-4 border-black"
               animate={{ y: [0, -12, 0] }}
