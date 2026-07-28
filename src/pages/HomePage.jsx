@@ -5,6 +5,7 @@ import Contact from "../sections/Contact";
 import Skills from "../sections/Skills";
 import Education from "../sections/Education";
 import Experience from "../sections/Experience";
+import Footer from "../components/Footer";
 
 function HomePage() {
   return (
@@ -16,6 +17,7 @@ function HomePage() {
       <Experience />
       <Projects />
       <Contact />
+      <Footer />
     </>
   );
 }

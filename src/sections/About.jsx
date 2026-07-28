@@ -1,202 +1,269 @@
+import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, EffectCoverflow } from "swiper/modules";
+import { motion, AnimatePresence } from "framer-motion";
 import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-} from "framer-motion";
-import { FaStethoscope, FaRocket, FaCode, FaCube, FaMicrochip } from "react-icons/fa";
-import { useRef } from "react";
+  FaGraduationCap,
+  FaBrain,
+  FaRocket,
+  FaCheckCircle,
+  FaQuoteLeft,
+  FaFire,
+  FaLaptopCode,
+  FaExpand,
+  FaTimes,
+  FaSearchPlus,
+} from "react-icons/fa";
 
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
 
 function About() {
-  const sectionRef = useRef(null);
+  const [activeStoryTab, setActiveStoryTab] = useState("academic");
+  const [selectedGalleryModal, setSelectedGalleryModal] = useState(null);
 
-  // Scroll progress of this section
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
+  const storyTabs = [
+    {
+      id: "academic",
+      label: "Academic Excellence",
+      icon: <FaGraduationCap className="text-yellow-400" />,
+      title: "Relentless Academic Pursuit & SPPU Topper",
+      content:
+        "Dedicated to mastering computer engineering, I have consistently maintained top-tier academic performance. By combining deep theoretical discipline with hands-on software development, I secured a 10 CGPA in my first year and hold a 9.5 overall CGPA at Savitribai Phule Pune University (SPPU).",
+      highlights: [
+        "Maintained 9.5 Overall CGPA at SPPU",
+        "Achieved 10 CGPA in 1st Year (College Topper)",
+        "Qualified GATE 2026 in Computer Science & Engineering",
+      ],
+      badgeColor: "from-yellow-500/20 to-amber-500/20 border-yellow-500/30 text-yellow-400",
+    },
+    {
+      id: "builder",
+      label: "The Builder Mindset",
+      icon: <FaLaptopCode className="text-cyan-400" />,
+      title: "Building Production-Grade MERN & AI Solutions",
+      content:
+        "I specialize in architecting full-stack applications with MERN (MongoDB, Express, React, Node) integrated with AI/ML capabilities. Whether it is automated reimbursement workflows, multimodal loan verification, or smart farming platforms, I focus on scalable backends, clean APIs, and modern visual UI.",
+      highlights: [
+        "6+ Full-Stack & AI Projects Deployed",
+        "REST API & Database Optimization Expert",
+        "2 Internships in Full-Stack Development & DSA",
+      ],
+      badgeColor: "from-cyan-500/20 to-blue-500/20 border-cyan-500/30 text-cyan-400",
+    },
+    {
+      id: "dsa",
+      label: "Problem Solving & CS",
+      icon: <FaBrain className="text-purple-400" />,
+      title: "Strong CS Fundamentals & Algorithmic Thinking",
+      content:
+        "Computer science is more than writing code—it is about efficiency, data structures, and foundational principles. Having qualified GATE 2026, I possess a strong conceptual framework in Operating Systems, DBMS, Computer Networks, and Data Structures alongside solving 100+ LeetCode problems.",
+      highlights: [
+        "Qualified GATE 2026 in Computer Science",
+        "100+ LeetCode DSA Problems Solved",
+        "National Level Hackathon Participant (SIH Waitlist Rank 6)",
+      ],
+      badgeColor: "from-purple-500/20 to-pink-500/20 border-purple-500/30 text-purple-400",
+    },
+  ];
 
-  // Smooth parallax movement
-  const yParallax = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const rotate3d = useTransform(scrollYProgress, [0, 1], [0, 360]);
-  const smoothY = useSpring(yParallax, { stiffness: 60, damping: 20 });
-  const smoothRotate = useSpring(rotate3d, { stiffness: 60, damping: 20 });
-
-  // Divider color transition (red → green)
-  const dividerColor = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["#f87171", "#22c55e"]
-  );
-
-  const revealText = (text) => {
-    return text.split(" ").map((word, index) => (
-      <motion.span
-        key={index}
-        initial={{ opacity: 0, y: 15 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: index * 0.03 }}
-        viewport={{ once: true }}
-        className="inline-block mr-1"
-      >
-        {word}
-      </motion.span>
-    ));
-  };
+  const galleryImages = [
+    { src: "/vyoma_team.jpg", title: "VYOMA Hackathon Team", subtitle: "Innovating Together at VYOMA 2026" },
+    { src: "/colorprint-2025.png", title: "Academic Topper Award", subtitle: "JSPM FE 3rd Topper Recognition" },
+    { src: "/Gateprt.png", title: "GATE 2026 Rank & Qualification", subtitle: "Computer Science Excellence" },
+    { src: "/pandora.png", title: "Pandora Hackathon Showcase", subtitle: "Project Prototype Presentation" },
+    { src: "/TeamArya.png", title: "AgriArya Hackathon Team", subtitle: "National Prototype Competition" },
+    { src: "/vyoma.png", title: "VYOMA 2026 Certificate", subtitle: "State Innovation Showcase" },
+    { src: "/shackathon.png", title: "Synapse Hackathon Certificate", subtitle: "24-Hr Offline Hackathon" },
+  ];
 
   return (
-    <section
-      ref={sectionRef}
-      id="about"
-      className="relative py-24 overflow-hidden bg-[#020617]"
-    >
-      {/* 3D HIGHLIGHTED BACKGROUND */}
+    <section id="about" className="py-24 relative overflow-hidden bg-[#020617] text-white">
+      {/* BACKGROUND GRAPHICS */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(34,211,238,0.08),transparent_70%)]" />
-        
-        {/* Animated Perspective Grid */}
-        <div 
-          className="absolute inset-0 opacity-[0.03]" 
-          style={{ 
-            backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
-            transform: 'perspective(500px) rotateX(60deg) translateY(-100px)',
-            maskImage: 'linear-gradient(to bottom, black, transparent)'
-          }}
-        />
-
-        {/* Floating 3D-Style Elements */}
-        <motion.div 
-            style={{ y: smoothY, rotate: smoothRotate }}
-            className="absolute top-20 right-[15%] opacity-20 hidden lg:block"
-        >
-            <FaCube className="text-[120px] text-cyan-400 drop-shadow-[0_0_30px_rgba(34,211,238,0.5)]" />
-        </motion.div>
-        
-        <motion.div 
-            style={{ y: useTransform(scrollYProgress, [0, 1], [-100, 100]), rotate: useTransform(scrollYProgress, [0, 1], [360, 0]) }}
-            className="absolute bottom-40 left-[10%] opacity-20 hidden lg:block"
-        >
-            <FaMicrochip className="text-[100px] text-purple-500 drop-shadow-[0_0_30px_rgba(168,85,247,0.5)]" />
-        </motion.div>
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-cyan-500/5 blur-[140px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-10 right-10 w-[500px] h-[500px] bg-purple-500/5 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-[size:45px_45px]" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
 
-        {/* Heading */}
-        <motion.h2
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-3xl md:text-5xl font-bold text-center mb-24"
-        >
-          My{" "}
-          <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
-            Evolution
-          </span>
-        </motion.h2>
-
-        {/* Split Layout */}
-        <div className="relative grid md:grid-cols-2 gap-10 md:gap-16 mb-24">
-
-          {/* Animated Divider (color morph) */}
-          <motion.div
-            style={{ backgroundColor: dividerColor }}
-            className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[2px] shadow-[0_0_10px_rgba(255,255,255,0.2)]"
-          />
-
-          {/* THEN: The Shift */}
-          <motion.div
-            initial={{ opacity: 0, x: -60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+        {/* SECTION HEADER */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            whileHover={{ y: -8, scale: 1.02 }}
-            className="group relative p-8 md:p-12 rounded-[2.5rem] border border-red-500/20 bg-white/[0.03] backdrop-blur-xl overflow-hidden shadow-[0_20px_50px_rgba(239,68,68,0.05)] transition-all duration-500"
+            className="text-cyan-400 font-semibold uppercase tracking-[0.25em] text-xs md:text-sm mb-3"
           >
-            <div className="absolute top-0 right-0 p-8 opacity-[0.08] group-hover:opacity-15 transition-opacity">
-              <FaStethoscope className="text-9xl text-red-400 rotate-12" />
-            </div>
-            
-            <div className="relative z-10">
-              <div className="w-14 h-14 bg-red-500/20 rounded-2xl flex items-center justify-center mb-8 border border-red-500/30 group-hover:shadow-[0_0_20px_rgba(239,68,68,0.3)] transition-all">
-                <FaStethoscope className="text-2xl text-red-400" />
-              </div>
-              <h3 className="text-2xl md:text-4xl font-bold text-red-500 mb-6 tracking-tight">
-                The Unexpected Shift
-              </h3>
+            DISCOVER MY PROFILE
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-5xl font-extrabold"
+          >
+            About <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">Me</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-gray-400 text-sm md:text-base mt-4 leading-relaxed"
+          >
+            Driven by engineering discipline, strong CS fundamentals, and a passion for turning complex ideas into clean, scalable software.
+          </motion.p>
+        </div>
 
-              <p className="text-gray-300 leading-relaxed text-sm md:text-lg font-light">
-                {revealText(
-                  "My focus was NEET. Medicine was the direction I believed in. Engineering entered unexpectedly after failure. The transition wasn’t easy — new field, new pressure, new doubts. I had to rebuild confidence from scratch."
-                )}
+        {/* BENTO GRID STATS & STORY HIGHLIGHTS */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mb-20">
+
+          {/* CARD 1: PROFILE & QUICK METRICS (Col 4) */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="md:col-span-4 bg-[#0b1220]/80 backdrop-blur-md border border-cyan-500/20 rounded-3xl p-6 md:p-8 flex flex-col justify-between relative overflow-hidden group shadow-2xl"
+          >
+            <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+              <FaRocket className="text-9xl text-cyan-400" />
+            </div>
+
+            <div>
+              <div className="relative w-28 h-28 mx-auto mb-6 rounded-full overflow-hidden border-2 border-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.3)]">
+                <img src="/Ajay1.png" alt="Ajay Ghadage" className="w-full h-full object-cover" />
+              </div>
+
+              <h3 className="text-2xl font-bold text-center text-white">Ajay Ghadage</h3>
+              <p className="text-cyan-400 text-xs font-semibold text-center uppercase tracking-wider mt-1">
+                Computer Engineering Student
               </p>
+              <p className="text-gray-400 text-xs text-center mt-3 leading-relaxed">
+                Savitribai Phule Pune University (SPPU) • Class of 2027
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 mt-6 pt-6 border-t border-gray-800/80 text-center">
+              <div className="bg-white/5 p-3 rounded-2xl border border-white/5">
+                <p className="text-cyan-400 text-lg font-extrabold">9.5</p>
+                <p className="text-[10px] text-gray-400 uppercase tracking-wider mt-0.5">Overall CGPA</p>
+              </div>
+              <div className="bg-white/5 p-3 rounded-2xl border border-white/5">
+                <p className="text-purple-400 text-lg font-extrabold">100+</p>
+                <p className="text-[10px] text-gray-400 uppercase tracking-wider mt-0.5">LeetCode Solved</p>
+              </div>
+              <div className="bg-white/5 p-3 rounded-2xl border border-white/5">
+                <p className="text-green-400 text-lg font-extrabold">GATE '26</p>
+                <p className="text-[10px] text-gray-400 uppercase tracking-wider mt-0.5">CS Qualified</p>
+              </div>
+              <div className="bg-white/5 p-3 rounded-2xl border border-white/5">
+                <p className="text-yellow-400 text-lg font-extrabold">Top 3</p>
+                <p className="text-[10px] text-gray-400 uppercase tracking-wider mt-0.5">College Ranker</p>
+              </div>
             </div>
           </motion.div>
 
-          {/* NOW: The Growth */}
+          {/* CARD 2: INTERACTIVE STORY TABS (Col 8) */}
           <motion.div
-            initial={{ opacity: 0, x: 60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            whileHover={{ y: -8, scale: 1.02 }}
-            className="group relative p-8 md:p-12 rounded-[2.5rem] border border-green-500/20 bg-white/[0.03] backdrop-blur-xl overflow-hidden shadow-[0_20px_50px_rgba(34,197,94,0.05)] transition-all duration-500"
+            className="md:col-span-8 bg-[#0b1220]/80 backdrop-blur-md border border-gray-800 rounded-3xl p-6 md:p-8 flex flex-col justify-between shadow-2xl relative"
           >
-            <div className="absolute top-0 right-0 p-8 opacity-[0.08] group-hover:opacity-15 transition-opacity">
-              <FaCode className="text-9xl text-green-400 -rotate-12" />
+            {/* Story Navigation Pills */}
+            <div className="flex flex-wrap gap-3 mb-6">
+              {storyTabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveStoryTab(tab.id)}
+                  className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold tracking-wide transition-all duration-300 ${
+                    activeStoryTab === tab.id
+                      ? "bg-gradient-to-r from-cyan-400 to-blue-500 text-black shadow-[0_0_15px_rgba(34,211,238,0.3)]"
+                      : "bg-white/5 border border-gray-800 text-gray-400 hover:text-white hover:border-gray-700"
+                  }`}
+                >
+                  {tab.icon}
+                  <span>{tab.label}</span>
+                </button>
+              ))}
             </div>
 
-            <div className="relative z-10">
-              <div className="w-14 h-14 bg-green-500/20 rounded-2xl flex items-center justify-center mb-8 border border-green-500/30 group-hover:shadow-[0_0_20_px_rgba(34,197,94,0.3)] transition-all">
-                <FaRocket className="text-2xl text-green-400" />
-              </div>
-              <h3 className="text-2xl md:text-4xl font-bold text-green-500 mb-6 tracking-tight">
-                Conscious Growth
-              </h3>
+            {/* Active Story Content with Smooth Animation */}
+            <AnimatePresence mode="wait">
+              {storyTabs
+                .filter((t) => t.id === activeStoryTab)
+                .map((tab) => (
+                  <motion.div
+                    key={tab.id}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex-grow flex flex-col justify-between space-y-6"
+                  >
+                    <div>
+                      <span className={`inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-gradient-to-r ${tab.badgeColor} border mb-3`}>
+                        Focus: {tab.label}
+                      </span>
+                      <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                        {tab.title}
+                      </h3>
+                      <p className="text-gray-300 text-sm md:text-base leading-relaxed font-light">
+                        {tab.content}
+                      </p>
+                    </div>
 
-              <p className="text-gray-300 leading-relaxed text-sm md:text-lg font-light">
-                {revealText(
-                  "I adapted quickly — finishing first year with a 10 CGPA and topping the college. That achievement shifted my mindset. I moved from chasing grades to building skills — strengthening DSA, developing MERN applications, and preparing for real-world challenges."
-                )}
-              </p>
-            </div>
+                    <div className="bg-[#070c17]/90 p-5 rounded-2xl border border-gray-800/80 space-y-2.5">
+                      <p className="text-xs font-bold uppercase tracking-wider text-cyan-400 mb-2 flex items-center gap-2">
+                        <FaFire /> Key Highlights
+                      </p>
+                      {tab.highlights.map((item, idx) => (
+                        <div key={idx} className="flex items-center gap-3 text-xs md:text-sm text-gray-300">
+                          <FaCheckCircle className="text-cyan-400 flex-shrink-0 text-sm" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                ))}
+            </AnimatePresence>
           </motion.div>
 
         </div>
 
-        {/* Quote */}
+        {/* MOTTO QUOTE BANNER */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="text-center max-w-4xl mx-auto mb-28"
+          className="relative max-w-4xl mx-auto mb-24 text-center"
         >
-          <div className="inline-block px-8 py-4 bg-white/5 backdrop-blur-sm rounded-full border border-white/10 mb-8">
-             <p className="text-lg md:text-3xl font-light text-white italic tracking-wide">
-                "I didn’t choose the path. I chose how I would grow on it."
-             </p>
+          <div className="p-[1px] bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 rounded-3xl shadow-[0_10px_30px_rgba(34,211,238,0.15)]">
+            <div className="bg-[#040d21]/95 backdrop-blur-xl px-8 py-8 md:py-10 rounded-[23px] relative overflow-hidden">
+              <FaQuoteLeft className="absolute top-4 left-6 text-cyan-500/10 text-6xl" />
+              <p className="text-lg md:text-2xl font-light text-white italic tracking-wide leading-relaxed relative z-10">
+                "Relax and discover the world of opportunities"
+              </p>
+              <p className="text-xs uppercase tracking-[0.2em] font-semibold text-cyan-400 mt-4 relative z-10">
+                — Personal Engineering Philosophy
+              </p>
+            </div>
           </div>
         </motion.div>
 
-        {/* 3D HIGHLIGHTED GALLERY */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ type: "spring", duration: 1.2 }}
-          viewport={{ once: true }}
-          className="relative max-w-4xl mx-auto"
-        >
-          {/* Subtle Glow Behind Gallery */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-cyan-400/20 blur-[120px] rounded-full pointer-events-none" />
+        {/* 3D HIGHLIGHTED JOURNEY GALLERY */}
+        <div className="relative max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <span className="text-cyan-400 text-xs font-bold uppercase tracking-widest">Visual Showcase</span>
+            <h3 className="text-2xl md:text-3xl font-extrabold text-white mt-1">
+              Achievements & Milestone Highlights
+            </h3>
+            <p className="text-gray-400 text-xs mt-2">
+              (Click any certificate to expand in high-definition)
+            </p>
+          </div>
 
           <Swiper
             effect={"coverflow"}
@@ -204,53 +271,127 @@ function About() {
             centeredSlides={true}
             slidesPerView={"auto"}
             coverflowEffect={{
-              rotate: window.innerWidth < 768 ? 25 : 35,
+              rotate: 25,
               stretch: 0,
-              depth: window.innerWidth < 768 ? 100 : 250,
+              depth: 180,
               modifier: 1,
               slideShadows: true,
             }}
             autoplay={{
-              delay: 3500,
+              delay: 4000,
               disableOnInteraction: false,
             }}
             loop={true}
             pagination={{ clickable: true, dynamicBullets: true }}
             modules={[Autoplay, Pagination, EffectCoverflow]}
-            className="mySwiper w-full py-16"
+            className="mySwiper w-full py-8"
           >
-            {[
-              "/pandora.png",
-              "/TeamArya.png",
-              "/Gateprt.png",
-              "/image2.png",
-              "/image3.png",
-              "/image4.png",
-            ].map((img, index) => (
-              <SwiperSlide 
-                key={index} 
-                className="w-[280px] h-[380px] md:w-[480px] md:h-[600px] rounded-[2.5rem] border-2 border-white/10 overflow-hidden shadow-2xl bg-gray-900 overflow-hidden group relative"
+            {galleryImages.map((img, index) => (
+              <SwiperSlide
+                key={index}
+                onClick={() => setSelectedGalleryModal(img)}
+                className="w-[290px] h-[400px] md:w-[450px] md:h-[540px] rounded-3xl border border-cyan-500/30 overflow-hidden shadow-2xl bg-[#060b17] relative group cursor-pointer flex flex-col justify-between"
               >
-                <img
-                  src={img}
-                  alt="Journey"
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                />
-                
-                {/* 3D HIGHLIGHT OVERLAY */}
-                <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-black via-black/40 to-transparent">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="h-1 w-8 bg-cyan-400 rounded-full animate-pulse" />
-                    <p className="text-cyan-400 font-black text-xs tracking-[0.3em] uppercase">Evolution 0{index + 1}</p>
+                {/* Header Badge */}
+                <div className="px-4 py-2.5 bg-[#0b1220] border-b border-gray-800 flex items-center justify-between z-10">
+                  <span className="bg-cyan-500/10 text-cyan-400 text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full border border-cyan-500/20">
+                    Milestone 0{index + 1}
+                  </span>
+                  <span className="text-[10px] text-gray-400 flex items-center gap-1 font-semibold group-hover:text-cyan-400 transition-colors">
+                    <FaSearchPlus /> Click to View
+                  </span>
+                </div>
+
+                {/* Main Image Container with Object-Contain (No Cropping!) */}
+                <div className="relative flex-grow w-full bg-[#020617] p-2 flex items-center justify-center overflow-hidden">
+                  <img
+                    src={img.src}
+                    alt={img.title}
+                    className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                  />
+                  
+                  {/* Subtle Hover Lens Overlay */}
+                  <div className="absolute inset-0 bg-cyan-950/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                    <div className="p-3 bg-cyan-500 text-black rounded-full shadow-lg">
+                      <FaExpand className="text-base" />
+                    </div>
                   </div>
-                  <p className="text-white font-bold text-2xl drop-shadow-md">Portfolio Journey Highlight</p>
+                </div>
+
+                {/* Sleek Non-Overlapping Footer */}
+                <div className="p-4 bg-[#0b1220] border-t border-gray-800 z-10 text-left">
+                  <h4 className="text-white font-bold text-sm md:text-base tracking-wide truncate">
+                    {img.title}
+                  </h4>
+                  <p className="text-gray-400 text-xs mt-0.5 font-medium truncate">
+                    {img.subtitle}
+                  </p>
                 </div>
               </SwiperSlide>
             ))}
           </Swiper>
-        </motion.div>
+        </div>
 
       </div>
+
+      {/* FULL-SCREEN CERTIFICATE LIGHTBOX MODAL */}
+      <AnimatePresence>
+        {selectedGalleryModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedGalleryModal(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4 md:p-8"
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-[#0b1220] border border-cyan-500/40 rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-hidden flex flex-col shadow-2xl relative"
+            >
+              {/* Modal Header */}
+              <div className="p-5 border-b border-gray-800 flex items-center justify-between bg-[#060b17]">
+                <div>
+                  <h3 className="text-lg md:text-xl font-bold text-white">
+                    {selectedGalleryModal.title}
+                  </h3>
+                  <p className="text-xs text-cyan-400 font-semibold mt-0.5">
+                    {selectedGalleryModal.subtitle}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setSelectedGalleryModal(null)}
+                  className="p-2.5 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-white/10 transition duration-200"
+                >
+                  <FaTimes className="text-lg" />
+                </button>
+              </div>
+
+              {/* High-Resolution Certificate View */}
+              <div className="flex-grow p-4 md:p-6 bg-[#020617] flex items-center justify-center overflow-auto">
+                <img
+                  src={selectedGalleryModal.src}
+                  alt={selectedGalleryModal.title}
+                  className="max-w-full max-h-[72vh] object-contain rounded-xl border border-gray-800 shadow-2xl"
+                />
+              </div>
+
+              {/* Modal Footer */}
+              <div className="p-4 border-t border-gray-800 bg-[#060b17] flex justify-between items-center text-xs text-gray-400">
+                <span>Verified Achievement & Certificate Document</span>
+                <button
+                  onClick={() => setSelectedGalleryModal(null)}
+                  className="px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-semibold rounded-xl hover:bg-cyan-500 hover:text-black transition"
+                >
+                  Close Preview
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

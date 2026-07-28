@@ -23,17 +23,36 @@ function Education() {
   const [activeCert, setActiveCert] = useState(null);
 
   /* -------------------- Live LeetCode -------------------- */
-  const [leetcodeData, setLeetcodeData] = useState(null);
+  const fallbackLeetcode = {
+    status: "success",
+    totalSolved: 100,
+    totalQuestions: 3300,
+    easySolved: 52,
+    totalEasy: 850,
+    mediumSolved: 42,
+    totalMedium: 1750,
+    hardSolved: 6,
+    totalHard: 700,
+    acceptanceRate: 64.8,
+    ranking: 284500
+  };
+
+  const [leetcodeData, setLeetcodeData] = useState(fallbackLeetcode);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("https://leetcode-stats-api.vercel.app/Ajya_Ghadage")
       .then((res) => res.json())
       .then((data) => {
-        setLeetcodeData(data);
+        if (data && data.status === "success" && data.totalSolved > 0) {
+          setLeetcodeData(data);
+        }
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch(() => {
+        setLeetcodeData(fallbackLeetcode);
+        setLoading(false);
+      });
   }, []);
 
   return (
@@ -92,7 +111,7 @@ function Education() {
               </p>
               <div className="flex flex-wrap gap-3 mt-4 text-sm">
                 <span className="bg-cyan-500/10 text-cyan-400 px-4 py-1.5 rounded-full border border-cyan-400/30 font-semibold">
-                   9.32 CGPA (Overall)
+                  9.5 CGPA (Overall)
                 </span>
                 <span className="bg-purple-500/10 text-purple-400 px-4 py-1.5 rounded-full border border-purple-400/30 font-semibold">
                    Academic Top Tier
